@@ -1,0 +1,20 @@
+runtime:
+  cache_dir: ./.cache/antora
+  log:
+    failure_level: warn
+site:
+  title: Dev Docs
+  start_page: spring-cloud::index.adoc
+content:
+  sources:
+  - url: /home/zlq/Production/GitRepos/spring-cloud.git
+    branches: master
+
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+  supplemental_files: ./supplemental-ui
+
+output:
+  dir: ./docs

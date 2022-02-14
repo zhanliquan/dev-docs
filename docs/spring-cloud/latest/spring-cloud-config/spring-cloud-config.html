@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>spring-cloud-config :: Dev Docs</title>
+    <meta name="generator" content="Antora 3.0.1">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/site-extra.css">
+    <link rel="icon" href="../../../favicon.ico" type="image/x-icon">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <div class="navbar-item">
+        <span class="separator">Dev Docs</span>
+      </div>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <div class="navbar-link">Projects</div>
+          <div class="navbar-dropdown">
+            <div class="navbar-item"><strong>Core</strong></div>
+            <a class="navbar-item" href="https://gitlab.com/antora/antora">Repository</a>
+            <a class="navbar-item" href="https://gitlab.com/antora/antora/issues">Issue Tracker</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="spring-cloud" data-version="latest">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Spring Cloud</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="spring-cloud-config.html">spring-cloud-config</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Spring Cloud</span>
+    <span class="version">default</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Spring Cloud</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">default</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Spring Cloud</a></li>
+    <li><a href="spring-cloud-config.html">spring-cloud-config</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">spring-cloud-config</h1>
+<div class="sect1">
+<h2 id="_quick_start"><a class="anchor" href="#_quick_start"></a>Quick Start</h2>
+<div class="sectionbody">
+<div class="literalblock">
+<div class="content">
+<pre>include::quickstart.adoc[]</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_spring_cloud_config_server"><a class="anchor" href="#_spring_cloud_config_server"></a>Spring Cloud Config Server</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Cloud Config Server provides an HTTP resource-based API for external configuration (name-value pairs or equivalent YAML content).
+The server is embeddable in a Spring Boot application, by using the <code>@EnableConfigServer</code> annotation.
+Consequently, the following application is a config server:</p>
+</div>
+<div class="paragraph">
+<p>Spring Cloud Config Server 为外部配置(name-value对或者是等价的YAML内容)提供了一个基于HTTP访问资源的API。
+通过使用`@EnableConfigServer`注解，服务可以嵌入到Spring Boot的应用中。
+一个config server 应用如下:</p>
+</div>
+<div class="listingblock">
+<div class="title">ConfigServer.java</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@SpringBootApplication
+@EnableConfigServer
+public class ConfigServer {
+  public static void main(String[] args) {
+    SpringApplication.run(ConfigServer.class, args);
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Like all Spring Boot applications, it runs on port 8080 by default, but you can switch it to the more conventional port 8888 in various ways.
+The easiest, which also sets a default configuration repository, is by launching it with <code>spring.config.name=configserver</code> (there is a <code>configserver.yml</code> in the Config Server jar).
+Another is to use your own <code>application.properties</code>, as shown in the following example:</p>
+</div>
+<div class="paragraph">
+<p>和所有的Spring Boot应用一样，它运行在默认的8080端口，但是你可以很多方式切换到更传统的8888端口。
+最简单就是使用一个默认的配置文件，通过启动的时候指定 <code>spring.config.name=configserver</code> （configserver就是指向Config Server中的 <code>configserver.yml</code>)
+其他方式也可以在 <code>application.properties</code> 中指定，例如显示如下：</p>
+</div>
+<div class="listingblock">
+<div class="title">application.properties</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">server.port=8888
+spring.cloud.config.server.git.uri=file://${user.home}/config-repo</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where <code>${user.home}/config-repo</code> is a git repository containing YAML and properties files.
+`${user.home}/config-repo`指向一个包含YAML和properties文件的git仓库。</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+On Windows, you need an extra "/" in the file URL if it is absolute with a drive prefix (for example,<code><a href="file:///${user.home}/config-repo" class="bare">file:///${user.home}/config-repo</a></code>).
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+在Windows上，如果是绝对路劲，文件URL需要额外的加上一个前缀"/"（例如：<code><a href="file:///${user.home}/config-repo" class="bare">file:///${user.home}/config-repo</a></code>).
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The following listing shows a recipe for creating the git repository in the preceding example:</p>
+</div>
+<div class="paragraph">
+<p>可以通过如下的方式，为前面的例子创建git仓库：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-asciidoc hljs" data-lang="asciidoc">$ cd $HOME
+$ mkdir config-repo
+$ cd config-repo
+$ git init .
+$ echo info.foo: bar &gt; application.properties
+$ git add -A .
+$ git commit -m "Add application.properties"</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Using the local filesystem for your git repository is intended for testing only.
+You should use a server to host your configuration repositories in production.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+这是一个只为了测试创建的本地文件系统的git仓库。
+最好在生产环境中使用服务器托管配置仓库。
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+The initial clone of your configuration repository can be quick and efficient if you keep only text files in it.
+If you store binary files, especially large ones, you may experience delays on the first request for configuration or encounter out of memory errors in the server.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+如果在仓库中只保存文本文件，这样方便快速有效的初始化clone配置仓库。
+如果存储了二进制文件，或特别大的文件，你可能请求配置文件的时候回延迟，在服务器遇到内存溢出（OOM）.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_serving_alternative_formats"><a class="anchor" href="#_serving_alternative_formats"></a>Serving Alternative Formats</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_serving_plain_text"><a class="anchor" href="#_serving_plain_text"></a>Serving Plain Text</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_embedding_the_config_server"><a class="anchor" href="#_embedding_the_config_server"></a>Embedding the Config Server</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_push_notifications_and_spring_cloud_bus"><a class="anchor" href="#_push_notifications_and_spring_cloud_bus"></a>Push Notifications and Spring Cloud Bus</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_spring_cloud_config_client"><a class="anchor" href="#_spring_cloud_config_client"></a>Spring Cloud Config Client</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>Copyright © <a href="https://opendevise.com">OpenDevise Inc.</a> and individual contributors to <a href="https://antora.org">Antora</a>.</p>
+  <p>Except where otherwise noted, docs.antora.org, Antora, and the Antora UI, are licensed under the <a href="https://www.mozilla.org/en-US/MPL/2.0/">Mozilla Public License Version 2.0</a> (MPL-2.0).</p>
+  <p>AsciiDoc® is a trademark of the Eclipse Foundation, Inc.</p>
+</footer>
+<script src="../../../_/js/site.js"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
