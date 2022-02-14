@@ -1,9 +1,0 @@
-plugins:
- - jekyll-asciidoc
-
-highlighter: rouge
-
-
-asciidoc:
-  processor: asciidoctor
-  ext: asciidoc,adoc,ad
