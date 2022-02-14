@@ -4,7 +4,9 @@ runtime:
     failure_level: warn
 site:
   title: Dev Docs
+  url: https://zhanliquan.github.io/dev-docs
   start_page: spring-cloud::index.adoc
+  robots: allow
 content:
   sources:
   - url: /home/zlq/Production/GitRepos/spring-cloud.git
